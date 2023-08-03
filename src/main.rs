@@ -64,7 +64,7 @@ fn main() -> std::io::Result<()> {
 }
 
 fn handle_connection(mut stream: TcpStream) -> Result<(), Box<dyn Error>> {
-    let version = "1.0.0";
+    let version = "1.0.1";
     let buf_reader = BufReader::new(&mut stream);
     let http_request: Vec<_> = buf_reader
         .lines()
