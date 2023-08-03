@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: simple-http
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: simple-http
+  template:
+    metadata:
+      labels:
+        app: simple-http
+    spec:
+      containers:
+      - image: szaffarano/argocd-sandbox:latest
+        name: simple-http
+        args:
+          - "-H"
+          - "0.0.0.0"
+          - "-p"
+          - "8080"
+        ports:
+        - containerPort: 8080
