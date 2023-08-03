@@ -14,4 +14,4 @@ COPY --from=builder /usr/src/target/release/argocd-sandbox .
 
 EXPOSE 8080
 
-CMD ["./argocd-sandbox", "-p", "8080", "-H", "0.0.0.0" ]
+ENTRYPOINT [ "./argocd-sandbox" ]
