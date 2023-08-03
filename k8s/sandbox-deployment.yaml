@@ -2,6 +2,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: simple-http
+  labels:
+    app-type: demo
 spec:
   replicas: 1
   revisionHistoryLimit: 3
