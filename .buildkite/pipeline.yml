@@ -4,7 +4,7 @@ steps:
     plugins:
       - docker-compose#v4.14.0:
           run: rust
-          config: .buildkite/docker-compose.yml
+          config: .buildkite/docker-compose.yaml
 
   - label: ":hammer: Build"
     command: ".buildkite/scripts/build.sh"
@@ -12,7 +12,7 @@ steps:
     plugins:
       - docker-compose#v4.14.0:
           run: rust
-          config: .buildkite/docker-compose.yml
+          config: .buildkite/docker-compose.yaml
 
   - label: ":test_tube: Test"
     command: ".buildkite/scripts/test.sh"
@@ -21,7 +21,7 @@ steps:
     plugins:
       - docker-compose#v4.14.0:
           run: rust
-          config: .buildkite/docker-compose.yml
+          config: .buildkite/docker-compose.yaml
 
   - label: ":rocket: Deploy"
     command: ".buildkite/scripts/deploy.sh"
@@ -30,7 +30,7 @@ steps:
     plugins:
       - docker-compose#v4.14.0:
           run: rust
-          config: .buildkite/docker-compose.yml
+          config: .buildkite/docker-compose.yaml
 
 
 
