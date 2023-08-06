@@ -6,7 +6,7 @@ steps:
           run: rust
           config: .buildkite/docker-compose.yaml
           cli-version: 2
-          user: root
+          propagate-uid-gid: true
 
   - label: ":hammer: Build"
     command: ".buildkite/scripts/build.sh"
@@ -16,7 +16,7 @@ steps:
           run: rust
           config: .buildkite/docker-compose.yaml
           cli-version: 2
-          user: root
+          propagate-uid-gid: true
 
   - label: ":test_tube: Test"
     command: ".buildkite/scripts/test.sh"
@@ -27,7 +27,7 @@ steps:
           run: rust
           config: .buildkite/docker-compose.yaml
           cli-version: 2
-          user: root
+          propagate-uid-gid: true
 
   - label: ":rocket: Deploy"
     command: ".buildkite/scripts/deploy.sh"
@@ -38,7 +38,7 @@ steps:
           run: rust
           config: .buildkite/docker-compose.yaml
           cli-version: 2
-          user: root
+          propagate-uid-gid: true
 
 
 
