@@ -1,0 +1,46 @@
+steps:
+  - label: ":test_tube: Lint"
+    command: ".buildkite/scripts/lint.sh"
+    plugins:
+      - docker-compose#v4.14.0:
+          run: rust
+          config: .buildkite/docker-compose.yaml
+          cli-version: 2
+          propagate-uid-gid: true
+
+  - label: ":hammer: Build"
+    command: ".buildkite/scripts/build.sh"
+    key: build
+    plugins:
+      - docker-compose#v4.14.0:
+          run: rust
+          config: .buildkite/docker-compose.yaml
+          cli-version: 2
+          propagate-uid-gid: true
+
+  - label: ":test_tube: Test"
+    command: ".buildkite/scripts/test.sh"
+    key: test
+    depends_on: build
+    plugins:
+      - docker-compose#v4.14.0:
+          run: rust
+          config: .buildkite/docker-compose.yaml
+          cli-version: 2
+          propagate-uid-gid: true
+
+  - label: ":rocket: Deploy"
+    command: ".buildkite/scripts/deploy.sh"
+    key: deploy
+    depends_on: test
+    plugins:
+      - docker-compose#v4.14.0:
+          run: rust
+          config: .buildkite/docker-compose.yaml
+          cli-version: 2
+          propagate-uid-gid: true
+
+
+
+
+
