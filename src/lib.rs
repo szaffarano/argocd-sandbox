@@ -1,8 +1,7 @@
 pub fn greet(name: String) -> String {
     match name.as_str() {
         "" => "Hello unknown!".to_string(),
-        _ => format!("Hello, {}!", name)
-
+        _ => format!("Hello, {}!", name),
     }
 }
 
@@ -16,6 +15,5 @@ mod tests {
     #[test]
     fn test_greet_with_empty_string() {
         assert_eq!("Hello unknown!", super::greet("".to_string()));
-    
     }
 }
