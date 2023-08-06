@@ -1,4 +1,4 @@
-FROM rust:latest as builder
+FROM rust:1.71 as builder
 
 WORKDIR /usr/src
 
@@ -14,4 +14,6 @@ COPY --from=builder /usr/src/target/release/argocd-sandbox .
 
 EXPOSE 8080
 
-ENTRYPOINT [ "./argocd-sandbox" ]
+USER nobody
+
+ENTRYPOINT [ "./argocd-sandbox"]
