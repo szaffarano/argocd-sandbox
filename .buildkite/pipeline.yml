@@ -1,20 +1,4 @@
 steps:
-  - label: ":test_tube: Debug"
-    command: "ls -l"
-    plugins:
-      - docker-compose#v4.14.0:
-          run: rust
-          config: .buildkite/docker-compose.yaml
-          cli-version: 2
-
-  - label: ":test_tube: Debug 2"
-    command: "pwd"
-    plugins:
-      - docker-compose#v4.14.0:
-          run: rust
-          config: .buildkite/docker-compose.yaml
-          cli-version: 2
-
   - label: ":test_tube: Lint"
     command: ".buildkite/scripts/lint.sh"
     plugins:
