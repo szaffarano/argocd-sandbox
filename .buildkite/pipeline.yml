@@ -1,6 +1,6 @@
 steps:
   - label: ":test_tube: Debug"
-    command: "find /"
+    command: "ls -l"
     plugins:
       - docker-compose#v4.14.0:
           run: rust
