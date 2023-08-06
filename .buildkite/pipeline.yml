@@ -5,6 +5,7 @@ steps:
       - docker-compose#v4.14.0:
           run: rust
           config: .buildkite/docker-compose.yaml
+          cli-version: 2
 
   - label: ":test_tube: Debug 2"
     command: "pwd"
@@ -12,6 +13,7 @@ steps:
       - docker-compose#v4.14.0:
           run: rust
           config: .buildkite/docker-compose.yaml
+          cli-version: 2
 
   - label: ":test_tube: Lint"
     command: ".buildkite/scripts/lint.sh"
@@ -19,6 +21,7 @@ steps:
       - docker-compose#v4.14.0:
           run: rust
           config: .buildkite/docker-compose.yaml
+          cli-version: 2
 
   - label: ":hammer: Build"
     command: ".buildkite/scripts/build.sh"
@@ -27,6 +30,7 @@ steps:
       - docker-compose#v4.14.0:
           run: rust
           config: .buildkite/docker-compose.yaml
+          cli-version: 2
 
   - label: ":test_tube: Test"
     command: ".buildkite/scripts/test.sh"
@@ -36,6 +40,7 @@ steps:
       - docker-compose#v4.14.0:
           run: rust
           config: .buildkite/docker-compose.yaml
+          cli-version: 2
 
   - label: ":rocket: Deploy"
     command: ".buildkite/scripts/deploy.sh"
@@ -45,6 +50,7 @@ steps:
       - docker-compose#v4.14.0:
           run: rust
           config: .buildkite/docker-compose.yaml
+          cli-version: 2
 
 
 
