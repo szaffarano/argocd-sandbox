@@ -1,6 +1,8 @@
 steps:
   - label: ":eyeglasses: Lint"
     command: ".buildkite/scripts/lint.sh"
+    if: |
+      build.tag !~ /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?\$/
     plugins:
       - docker-compose#v4.14.0:
           run: rust
@@ -11,6 +13,8 @@ steps:
   - label: ":hammer: Build"
     command: ".buildkite/scripts/build.sh"
     key: build
+    if: |
+      build.tag !~ /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?\$/
     plugins:
       - docker-compose#v4.14.0:
           run: rust
@@ -22,6 +26,8 @@ steps:
     command: ".buildkite/scripts/test.sh"
     key: test
     depends_on: build
+    if: |
+      build.tag !~ /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?\$/
     plugins:
       - docker-compose#v4.14.0:
           run: rust
@@ -33,7 +39,9 @@ steps:
     command: ".buildkite/scripts/deploy.sh"
     key: deploy
     depends_on: test
-    if: build.branch == "main"
+    if: |
+      build.tag !~ /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?\$/ &&
+      build.branch == "main"
     plugins:
       - docker-compose#v4.14.0:
           run: rust
@@ -44,7 +52,9 @@ steps:
   - label: ":rocket: Release :the_horns:"
     command: ".buildkite/scripts/release.sh"
     depends_on: deploy
-    if: build.tag =~ /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?\$/
+    if: |
+      build.tag =~ /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?\$/ &&
+      build.branch == "main"
     plugins:
       - docker-compose#v4.14.0:
           run: rust
