@@ -9,6 +9,8 @@ steps:
           config: .buildkite/docker-compose.yaml
           cli-version: 2
           propagate-uid-gid: true
+          env:
+            - GITHUB_TOKEN
 
   - label: ":hammer: Build"
     command: ".buildkite/scripts/build.sh"
@@ -21,6 +23,8 @@ steps:
           config: .buildkite/docker-compose.yaml
           cli-version: 2
           propagate-uid-gid: true
+          env:
+            - GITHUB_TOKEN
 
   - label: ":test_tube: Test"
     command: ".buildkite/scripts/test.sh"
@@ -34,6 +38,8 @@ steps:
           config: .buildkite/docker-compose.yaml
           cli-version: 2
           propagate-uid-gid: true
+          env:
+            - GITHUB_TOKEN
 
   - label: ":rocket: Publish"
     command: ".buildkite/scripts/deploy.sh"
@@ -48,6 +54,8 @@ steps:
           config: .buildkite/docker-compose.yaml
           cli-version: 2
           propagate-uid-gid: true
+          env:
+            - GITHUB_TOKEN
 
   - label: ":rocket: Release :the_horns:"
     command: ".buildkite/scripts/release.sh"
@@ -60,3 +68,5 @@ steps:
           config: .buildkite/docker-compose.yaml
           cli-version: 2
           propagate-uid-gid: true
+          env:
+            - GITHUB_TOKEN
