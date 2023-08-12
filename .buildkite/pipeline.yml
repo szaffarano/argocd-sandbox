@@ -44,7 +44,7 @@ steps:
   - label: ":rocket: Release :the_horns:"
     command: ".buildkite/scripts/release.sh"
     depends_on: deploy
-    if: build.tag =~ /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?$/
+    if: build.tag =~ /^v[0-9]+\.0\$/
     plugins:
       - docker-compose#v4.14.0:
           run: rust
