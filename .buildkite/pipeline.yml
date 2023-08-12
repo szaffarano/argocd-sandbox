@@ -1,5 +1,5 @@
 steps:
-  - label: ":test_tube: Lint"
+  - label: ":eyeglasses: Lint"
     command: ".buildkite/scripts/lint.sh"
     plugins:
       - docker-compose#v4.14.0:
@@ -29,7 +29,7 @@ steps:
           cli-version: 2
           propagate-uid-gid: true
 
-  - label: ":rocket: Deploy"
+  - label: ":rocket: Publish"
     command: ".buildkite/scripts/deploy.sh"
     key: deploy
     depends_on: test
@@ -40,7 +40,13 @@ steps:
           cli-version: 2
           propagate-uid-gid: true
 
-
-
-
-
+  - label: ":rocket: Release :the_horns:"
+    command: ".buildkite/scripts/release.sh"
+    depends_on: deploy
+    if: build.tag =~ /^v[0-9]+\.0\$/
+    plugins:
+      - docker-compose#v4.14.0:
+          run: rust
+          config: .buildkite/docker-compose.yaml
+          cli-version: 2
+          propagate-uid-gid: true

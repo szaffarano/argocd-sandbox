@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-echo "not implemented yet"
+echo "Not implemented"
