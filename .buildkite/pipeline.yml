@@ -33,6 +33,7 @@ steps:
     command: ".buildkite/scripts/deploy.sh"
     key: deploy
     depends_on: test
+    if: build.branch == "main"
     plugins:
       - docker-compose#v4.14.0:
           run: rust
