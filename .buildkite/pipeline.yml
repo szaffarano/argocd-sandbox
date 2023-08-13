@@ -60,7 +60,6 @@ steps:
       - docker-compose#v4.14.0:
           run: go
           cli-version: 2
-          propagate-uid-gid: true
           env:
             - GITHUB_TOKEN
             - DOCKERHUB_TOKEN
