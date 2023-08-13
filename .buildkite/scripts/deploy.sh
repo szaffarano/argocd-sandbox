@@ -2,9 +2,13 @@
 
 set -euo pipefail
 
+mkdir "$HOME"
+git config --global --add safe.directory $(pwd)
+
 GIT_COMMIT="$(git rev-parse --short HEAD)"
 VERSION="$(cat .version)"
 IMAGE="szaffarano/argocd-sandbox"
+
 
 docker build \
 	-t "$IMAGE:latest" \
