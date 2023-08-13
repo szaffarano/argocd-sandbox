@@ -2,8 +2,6 @@
 
 set -euo pipefail
 
-go get -u golang.org/x/lint/golint
-go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
+go install golang.org/x/lint/golint@latest
 
-golint ./...
-golangci-lint run
+$HOME/go/bin/golint ./...
