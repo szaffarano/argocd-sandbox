@@ -7,3 +7,15 @@ resources:
 images:
  - name: szaffarano/argocd-sandbox
    newTag: latest
+
+patches:
+  - target:
+      kind: Ingress
+      name: server-ingress
+    patch: |
+      - op: replace
+        path: /metadata/namespace
+        value: staging
+      - op: replace
+        path: /spec/rules/0/host
+        value: staging.local
