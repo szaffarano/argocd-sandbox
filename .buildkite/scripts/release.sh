@@ -20,4 +20,4 @@ git add flag
 git commit -m "Automated CI/CD commit"
 git push origin "$branch"
 
-gh pr create -b "Please review" -t "Bump version to $(cat .version)" -H master
+gh pr create -b "Please review" -t "Bump version to $(cat .version)"
