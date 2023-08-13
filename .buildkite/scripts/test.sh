@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-cargo test
+go test ./...

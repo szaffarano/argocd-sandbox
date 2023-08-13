@@ -5,8 +5,7 @@ steps:
       build.tag !~ /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?\$/
     plugins:
       - docker-compose#v4.14.0:
-          run: rust
-          config: .buildkite/docker-compose.yaml
+          run: go
           cli-version: 2
           propagate-uid-gid: true
 
@@ -17,8 +16,7 @@ steps:
       build.tag !~ /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?\$/
     plugins:
       - docker-compose#v4.14.0:
-          run: rust
-          config: .buildkite/docker-compose.yaml
+          run: go
           cli-version: 2
           propagate-uid-gid: true
 
@@ -30,8 +28,7 @@ steps:
       build.tag !~ /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?\$/
     plugins:
       - docker-compose#v4.14.0:
-          run: rust
-          config: .buildkite/docker-compose.yaml
+          run: go
           cli-version: 2
           propagate-uid-gid: true
 
@@ -44,10 +41,13 @@ steps:
       build.branch == "main"
     plugins:
       - docker-compose#v4.14.0:
-          run: rust
-          config: .buildkite/docker-compose.yaml
+          run: go
           cli-version: 2
           propagate-uid-gid: true
+          env:
+            - GITHUB_TOKEN
+            - DOCKERHUB_TOKEN
+            - DOCKERHUB_USERNAME
 
   - label: ":rocket: Release :the_horns:"
     command: ".buildkite/scripts/release.sh"
@@ -56,9 +56,10 @@ steps:
       build.tag =~ /^v(0|[1-9]\d*)\.(0|[1-9]\d*)\.(0|[1-9]\d*)(?:-([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?(?:\+([0-9A-Za-z-]+(?:\.[0-9A-Za-z-]+)*))?\$/
     plugins:
       - docker-compose#v4.14.0:
-          run: rust
-          config: .buildkite/docker-compose.yaml
+          run: go
           cli-version: 2
           propagate-uid-gid: true
           env:
             - GITHUB_TOKEN
+            - DOCKERHUB_TOKEN
+            - DOCKERHUB_USERNAME

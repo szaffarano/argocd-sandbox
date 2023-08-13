@@ -1,10 +1,14 @@
 version: "3"
 services:
-  rust:
-    image: rust:1.71
+  go:
+    image: golang:1
     volumes:
       - $PWD:/src
       - /var/run/docker.sock:/var/run/docker.sock
     working_dir: /src
     environment:
+      HOME: "/tmp/home"
+      GOPATH: "/tmp/home/go"
       GITHUB_TOKEN: "${GITHUB_TOKEN}"
+      DOCKERHUB_TOKEN: "${DOCKERHUB_TOKEN}"
+      DOCKERHUB_USERNAME: "${DOCKERHUB_USERNAME}"

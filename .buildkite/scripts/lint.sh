@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -eo pipefail
 
-rustup component add rustfmt
+if [ -n "$RUN_LINT" ]; then
+	go install golang.org/x/lint/golint@latest
+	go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
-cargo fmt --all -- --check
+	$HOME/go/bin/golint ./...
+	$HOME/go/bin/golangci-lint run
+fi
