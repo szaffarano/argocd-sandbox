@@ -2,34 +2,34 @@
 
 set -euo pipefail
 
-[ -d "$HOME" ] || mkdir "$HOME"
+function main {
+  base_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  source "$base_dir/common.sh"
 
-git config --global --add safe.directory "$(pwd)"
+  setup
+  setup_git_remote
+  setup_docker_env
 
-GIT_COMMIT="$(git rev-parse --short HEAD)"
-VERSION="$(cat .version)"
-IMAGE="szaffarano/argocd-sandbox"
+  GIT_COMMIT="$(git_revision)"
+  VERSION="$(app_version)"
+  IMAGE="$(docker_image)"
+  branch="release/$(cat .version)"
+  msg="Bump version to $VERSION"
 
-branch="release/$(cat .version)"
+  docker pull "$IMAGE:$GIT_COMMIT"
+  docker tag "$IMAGE:$GIT_COMMIT" "$IMAGE:$VERSION"
+  docker push "$IMAGE:$VERSION"
 
-remote=$(
-  git remote get-url origin | sed -E s"/https:\/\/(.*)/https:\/\/${GITHUB_TOKEN}@\1/g"
-)
+  git checkout -b "$branch"
 
-echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+  grep -lr newTag infra/k8s/overlays/production | while read -r f; do
+    sed s"/newTag: .*/newTag: $VERSION/g" "$f"
+  done
 
-docker pull "$IMAGE:$GIT_COMMIT"
-docker tag "$IMAGE:$GIT_COMMIT" "$IMAGE:$VERSION"
-docker push "$IMAGE:$VERSION"
+  git commit -m "$msg" -m "[skip ci]"
+  git push origin "$branch"
 
-git config --global user.email "no-reply@ci-bot"
-git config --global user.name "CI Bot"
-git remote set-url origin "$remote"
+  gh pr create -b "Please review" -t "$msg"
+}
 
-git checkout -b "$branch"
-echo "test" >flag
-git add flag
-git commit -m "Automated CI/CD commit" -m "[skip ci]"
-git push origin "$branch"
-
-gh pr create -b "Please review" -t "Bump version to $(cat .version)"
+main "$@"

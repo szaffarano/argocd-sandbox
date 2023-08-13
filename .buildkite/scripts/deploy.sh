@@ -2,22 +2,25 @@
 
 set -euo pipefail
 
-[ -d "$HOME" ] || mkdir "$HOME"
+function main {
+  base_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  source "$base_dir/common.sh"
 
-git config --global --add safe.directory "$(pwd)"
+  setup
+  setup_docker_env
 
-GIT_COMMIT="$(git rev-parse --short HEAD)"
-VERSION="$(cat .version)"
-IMAGE="szaffarano/argocd-sandbox"
+  GIT_COMMIT="$(git_revision)"
+  VERSION="$(app_version)"
+  IMAGE="$(docker_image)"
 
-docker build \
-  -t "$IMAGE:latest" \
-  --build-arg VERSION="$VERSION" \
-  --build-arg GIT_COMMIT="$GIT_COMMIT" .
+  docker build \
+    -t "$IMAGE:latest" \
+    --build-arg VERSION="$VERSION" \
+    --build-arg GIT_COMMIT="$GIT_COMMIT" .
 
-docker tag "$IMAGE:latest" "$IMAGE:$GIT_COMMIT"
+  docker tag "$IMAGE:latest" "$IMAGE:$GIT_COMMIT"
+  docker push "$IMAGE:latest"
+  docker push "$IMAGE:$GIT_COMMIT"
+}
 
-echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
-
-docker push "$IMAGE:latest"
-docker push "$IMAGE:$GIT_COMMIT"
+main "$@"
