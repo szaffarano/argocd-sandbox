@@ -4,11 +4,22 @@ set -euo pipefail
 
 [ -d "$HOME" ] || mkdir "$HOME"
 
+git config --global --add safe.directory $(pwd)
+
+GIT_COMMIT="$(git rev-parse --short HEAD)"
+VERSION="$(cat .version)"
+
 branch="release/$(cat .version)"
 
 remote=$(
 	git remote get-url origin | sed -E s"/https:\/\/(.*)/https:\/\/${GITHUB_TOKEN}@\1/g"
 )
+
+echo $DOCKERHUB_TOKEN | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+
+docker pull "$IMAGE:$GIT_COMMIT"
+docker tag "$IMAGE:$GIT_COMMIT" "$IMAGE:$VERSION"
+docker push "$IMAGE:$VERSION"
 
 git config --global user.email "no-reply@ci-bot"
 git config --global user.name "CI Bot"
