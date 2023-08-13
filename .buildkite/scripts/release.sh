@@ -4,7 +4,7 @@ set -euo pipefail
 
 branch="release/$(cat .version)"
 
-local remote=$(
+remote=$(
 	git remote get-url origin | sed -E s"/https:\/\/(.*)/https:\/\/${GITHUB_TOKEN}@\1/g"
 )
 
@@ -19,5 +19,3 @@ git commit -m "Automated CI/CD commit"
 git push origin "$branch"
 
 gh pr create -b "Please review" -t "Bump version to $(cat .version)" -H master
-
-rm remote
