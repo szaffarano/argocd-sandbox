@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-cargo build --release
+RUN CGO_ENABLED=0 GOOS=linux go build

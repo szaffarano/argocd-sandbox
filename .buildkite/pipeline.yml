@@ -48,6 +48,10 @@ steps:
           config: .buildkite/docker-compose.yaml
           cli-version: 2
           propagate-uid-gid: true
+          env:
+            - GITHUB_TOKEN
+            - DOCKERHUB_TOKEN
+            - DOCKERHUB_USERNAME
 
   - label: ":rocket: Release :the_horns:"
     command: ".buildkite/scripts/release.sh"
@@ -62,3 +66,5 @@ steps:
           propagate-uid-gid: true
           env:
             - GITHUB_TOKEN
+            - DOCKERHUB_TOKEN
+            - DOCKERHUB_USERNAME

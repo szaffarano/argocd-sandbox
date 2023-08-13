@@ -8,3 +8,5 @@ services:
     working_dir: /src
     environment:
       GITHUB_TOKEN: "${GITHUB_TOKEN}"
+      DOCKERHUB_TOKEN: "${DOCKERHUB_TOKEN}"
+      DOCKERHUB_USERNAME: "${DOCKERHUB_USERNAME}"

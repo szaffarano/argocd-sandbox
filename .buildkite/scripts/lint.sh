@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
-rustup component add rustfmt
+go get -u golang.org/x/lint/golint
+go install github.com/golangci/golangci-lint/cmd/golangci-lint@latest
 
-cargo fmt --all -- --check
+golint ./...
+golangci-lint run
