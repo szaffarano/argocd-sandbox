@@ -18,3 +18,6 @@ docker build \
 docker tag "$IMAGE:latest" "$IMAGE:$VERSION"
 
 echo $DOCKERHUB_TOKEN | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+
+docker push "$IMAGE:latest"
+docker push "$IMAGE:$VERSION"
