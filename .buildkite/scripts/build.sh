@@ -2,4 +2,4 @@
 
 set -euo pipefail
 
-RUN CGO_ENABLED=0 GOOS=linux go build
+CGO_ENABLED=0 GOOS=linux go build
