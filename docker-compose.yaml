@@ -1,7 +1,7 @@
 version: "3"
 services:
-  rust:
-    image: rust:1.71
+  go:
+    image: golang:1
     volumes:
       - $PWD:/src
       - /var/run/docker.sock:/var/run/docker.sock
