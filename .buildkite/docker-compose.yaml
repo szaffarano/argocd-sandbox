@@ -6,3 +6,5 @@ services:
       - $PWD:/src
       - /var/run/docker.sock:/var/run/docker.sock
     working_dir: /src
+    environment:
+      GITHUB_TOKEN: "${GITHUB_TOKEN}"

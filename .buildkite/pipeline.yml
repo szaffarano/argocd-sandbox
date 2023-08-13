@@ -60,3 +60,5 @@ steps:
           config: .buildkite/docker-compose.yaml
           cli-version: 2
           propagate-uid-gid: true
+          env:
+            - GITHUB_TOKEN
