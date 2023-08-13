@@ -23,7 +23,7 @@ function main {
   git checkout -b "$branch"
 
   grep -lr newTag infra/k8s/overlays/production | while read -r f; do
-    sed -iE s"/newTag: .*/newTag: $VERSION/g" "$f"
+    sed -i s"/newTag: .*/newTag: $VERSION/g" "$f"
   done
 
   git add infra/k8s/overlays/production
