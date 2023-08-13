@@ -15,7 +15,7 @@ patches:
     patch: |
       - op: replace
         path: /metadata/namespace
-        value: staging
+        value: production
       - op: replace
         path: /spec/rules/0/host
-        value: staging.local
+        value: production.local
