@@ -18,6 +18,7 @@ spec:
       containers:
       - image: szaffarano/argocd-sandbox:latest
         name: simple-http
+        imagePullPolicy: Always
         args:
           - "-host"
           - "0.0.0.0"
