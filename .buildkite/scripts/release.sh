@@ -8,6 +8,7 @@ git config --global --add safe.directory $(pwd)
 
 GIT_COMMIT="$(git rev-parse --short HEAD)"
 VERSION="$(cat .version)"
+IMAGE="szaffarano/argocd-sandbox"
 
 branch="release/$(cat .version)"
 
