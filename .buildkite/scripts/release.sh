@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+[ -d "$HOME" ] || mkdir "$HOME"
+
 branch="release/$(cat .version)"
 
 remote=$(

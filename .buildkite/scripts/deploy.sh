@@ -2,7 +2,8 @@
 
 set -euo pipefail
 
-mkdir "$HOME"
+[ -d "$HOME" ] || mkdir "$HOME"
+
 git config --global --add safe.directory $(pwd)
 
 GIT_COMMIT="$(git rev-parse --short HEAD)"
