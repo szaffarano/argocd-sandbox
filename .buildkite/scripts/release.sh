@@ -26,6 +26,8 @@ function main {
     sed -iE s"/newTag: .*/newTag: $VERSION/g" "$f"
   done
 
+  git add infra/k8s/overlays/production
+
   git commit -m "$msg" -m "[skip ci]"
   git push origin "$branch"
 
