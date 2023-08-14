@@ -14,7 +14,7 @@ function main {
   VERSION="$(app_version)"
   IMAGE="$(docker_image)"
   branch="release/$VERSION"
-  msg="Bump version to $VERSION"
+  msg="Bump version $VERSION"
 
   echo ":release: About to release $VERSION"
 
