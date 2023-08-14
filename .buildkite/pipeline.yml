@@ -48,6 +48,7 @@ steps:
             - GITHUB_TOKEN
             - DOCKERHUB_TOKEN
             - DOCKERHUB_USERNAME
+            - BUILDKITE_TAG
 
   - wait
 
@@ -64,3 +65,4 @@ steps:
             - GITHUB_TOKEN
             - DOCKERHUB_TOKEN
             - DOCKERHUB_USERNAME
+            - BUILDKITE_TAG

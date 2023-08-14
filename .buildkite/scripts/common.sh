@@ -22,10 +22,6 @@ function git_revision {
 }
 
 function app_version {
-  echo "Getting version --- ENV ---"
-  env
-  echo "Getting version --- /ENV ---"
-
   if [ -n "${BUILDKITE_TAG:-}" ]; then
     echo "$BUILDKITE_TAG"
   else
