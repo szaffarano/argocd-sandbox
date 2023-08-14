@@ -6,7 +6,7 @@ resources:
 
 images:
  - name: szaffarano/argocd-sandbox
-   newTag: v0.1.0
+   newTag: 7bf9aa1-dev
 
 patches:
   - target:
