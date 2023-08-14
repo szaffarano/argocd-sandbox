@@ -13,7 +13,7 @@ function main {
   GIT_COMMIT="$(git_revision)"
   VERSION="$(app_version)"
   IMAGE="$(docker_image)"
-  branch="release/$(cat .version)"
+  branch="release/$VERSION"
   msg="Bump version to $VERSION"
 
   docker build \
