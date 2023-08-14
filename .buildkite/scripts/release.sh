@@ -14,7 +14,16 @@ function main {
   VERSION="$(app_version)"
   IMAGE="$(docker_image)"
   branch="release/$VERSION"
-  msg="Bump version $VERSION"
+  title="Bump version $VERSION"
+
+  msg_file="$(mktemp)"
+  trap rm "$msg_file" EXIT
+
+  cat <<EOF >"$msg_file"
+    Bump version $VERSION
+
+    [skip ci]
+EOF
 
   echo ":release: About to release $VERSION"
 
@@ -38,10 +47,10 @@ function main {
 
   git add infra/k8s/overlays/production
 
-  git commit -m "$msg" -m "[skip ci]"
+  git commit -m "$title" -m "[skip ci]"
   git push origin "$branch"
 
-  gh pr create -b "Please review\n[skip ci]" -t "$msg"
+  gh pr create -F "$msg_file" -t "$title"
 }
 
 main "$@"
