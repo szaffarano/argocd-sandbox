@@ -16,12 +16,15 @@ function main {
   branch="release/$VERSION"
   msg="Bump version to $VERSION"
 
+  echo ":release: About to release $VERSION"
+
   docker build \
     -t "$IMAGE:latest" \
     --build-arg VERSION="$VERSION" \
     --build-arg GIT_COMMIT="$GIT_COMMIT" .
 
   docker tag "$IMAGE:latest" "$IMAGE:$GIT_COMMIT"
+  docker tag "$IMAGE:latest" "$IMAGE:$VERSION"
 
   docker push "$IMAGE:latest"
   docker push "$IMAGE:$GIT_COMMIT"

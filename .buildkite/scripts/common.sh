@@ -23,7 +23,7 @@ function git_revision {
 
 function app_version {
   if [ -n "${BUILDKITE_TAG:-}" ]; then
-    echo "{BUILDKITE_TAG}"
+    echo "$BUILDKITE_TAG"
   else
     echo "$(git_revision)-dev"
   fi
