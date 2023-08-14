@@ -16,6 +16,10 @@ function main {
   branch="release/$VERSION"
   msg="Bump version to $VERSION"
 
+  echo "Doing release --- ENV ---"
+  env
+  echo "Doing release --- /ENV ---"
+
   echo ":release: About to release $VERSION"
 
   docker build \
