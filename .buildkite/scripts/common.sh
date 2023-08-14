@@ -22,7 +22,7 @@ function git_revision {
 }
 
 function app_version {
-  cat .version
+  [ -n "$BUILDKITE_TAG" ] && echo "$BUILDKITE_TAG" || echo "$(git_revision)-dev"
 }
 
 function docker_image {
