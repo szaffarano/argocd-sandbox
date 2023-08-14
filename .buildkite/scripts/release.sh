@@ -41,7 +41,7 @@ function main {
   git commit -m "$msg" -m "[skip ci]"
   git push origin "$branch"
 
-  gh pr create -b "Please review" -t "$msg"
+  gh pr create -b "Please review\n[skip ci]" -t "$msg"
 }
 
 main "$@"
