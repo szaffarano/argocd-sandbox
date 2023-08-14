@@ -17,7 +17,6 @@ function main {
   title="Bump version $VERSION"
 
   msg_file="$(mktemp)"
-  trap rm "$msg_file" EXIT
 
   cat <<EOF >"$msg_file"
     Bump version $VERSION
