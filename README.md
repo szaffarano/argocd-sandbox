@@ -3,3 +3,5 @@
 ![Docker Image Size (tag)](https://img.shields.io/docker/image-size/szaffarano/argocd-sandbox/latest)
 
 # ArgoCD POC
+
+TBD
