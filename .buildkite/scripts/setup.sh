@@ -1,15 +1,9 @@
 #!/usr/bin/env bash
 
-set -eo pipefail
-
 function main {
-  GIT_COMMIT="$(git_revision)"
-  VERSION="$(app_version)"
-  IMAGE="szaffarano/argocd-sandbox"
-
-  export GIT_COMMIT
-  export VERSION
-  export IMAGE
+  ensure_home
+  configure_git
+  setup_docker_env
 }
 
 function ensure_home {
@@ -22,18 +16,6 @@ function configure_git {
   git config --global user.name "CI Bot"
 
   # TODO: configure gpg key to sign commits
-}
-
-function git_revision {
-  git rev-parse --short HEAD
-}
-
-function app_version {
-  if [ -n "${BUILDKITE_TAG:-}" ]; then
-    echo "$BUILDKITE_TAG"
-  else
-    echo "$(git_revision)-dev"
-  fi
 }
 
 function setup_docker_env {

@@ -44,11 +44,6 @@ steps:
           run: go
           cli-version: 2
           propagate-uid-gid: false
-          env:
-            - GITHUB_TOKEN
-            - DOCKERHUB_TOKEN
-            - DOCKERHUB_USERNAME
-            - BUILDKITE_TAG
 
   - wait
 
@@ -61,8 +56,3 @@ steps:
       - docker-compose#v4.14.0:
           run: go
           cli-version: 2
-          env:
-            - GITHUB_TOKEN
-            - DOCKERHUB_TOKEN
-            - DOCKERHUB_USERNAME
-            - BUILDKITE_TAG

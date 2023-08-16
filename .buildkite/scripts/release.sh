@@ -3,6 +3,8 @@
 set -euo pipefail
 
 function main {
+  "$(dirname "${BASH_SOURCE[0]}")"/setup.sh
+
   local branch
   local title
   local k8s_base
