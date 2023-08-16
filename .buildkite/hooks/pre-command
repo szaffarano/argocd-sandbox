@@ -1,10 +1,19 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -eo pipefail
 
-function setup {
+function main {
   ensure_home
   configure_git
+  setup_docker_env
+
+  GIT_COMMIT="$(git_revision)"
+  VERSION="$(app_version)"
+  IMAGE="szaffarano/argocd-sandbox"
+
+  export GIT_COMMIT
+  export VERSION
+  export IMAGE
 }
 
 function ensure_home {
@@ -15,6 +24,8 @@ function configure_git {
   git config --global --add safe.directory "$(pwd)"
   git config --global user.email "no-reply@ci-bot"
   git config --global user.name "CI Bot"
+
+  # TODO: configure gpg key to sign commits
 }
 
 function git_revision {
@@ -29,17 +40,8 @@ function app_version {
   fi
 }
 
-function docker_image {
-  echo "szaffarano/argocd-sandbox"
-}
-
-function setup_git_remote {
-  remote=$(
-    git remote get-url origin | sed -E s"/https:\/\/(.*)/https:\/\/${GITHUB_TOKEN}@\1/g"
-  )
-  git remote set-url origin "$remote"
-}
-
 function setup_docker_env {
   echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
 }
+
+main "$@"
